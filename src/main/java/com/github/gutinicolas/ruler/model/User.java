@@ -4,7 +4,6 @@ package com.github.gutinicolas.ruler.model;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Optional;
-import java.util.Set;
 import java.util.UUID;
 
 public class User implements Serializable {
@@ -14,10 +13,6 @@ public class User implements Serializable {
     private String email;
     private String password;
     private Identity identity;
-    private Rol rol;
-    private Profile profile;
-    private Set<User> followers;
-    private Set<User> following;
 
     public UUID getId() {
         return id;
@@ -57,80 +52,6 @@ public class User implements Serializable {
 
     public void setIdentity(Identity identity) {
         this.identity = identity;
-    }
-
-    public Rol getRol() {
-        return rol;
-    }
-
-    public void setRol(Rol rol) {
-        this.rol = rol;
-    }
-
-    public Profile getProfile() {
-        return profile;
-    }
-
-    public void setProfile(Profile profile) {
-        this.profile = profile;
-    }
-}
-
-class Profile {
-    private String profileName;
-    private String bio;
-    private Set<SocialNetwork> socialNetworks;
-
-    public String getProfileName() {
-        return profileName;
-    }
-
-    public void setProfileName(String profileName) {
-        this.profileName = profileName;
-    }
-
-    public String getBio() {
-        return bio;
-    }
-
-    public void setBio(String bio) {
-        this.bio = bio;
-    }
-
-    public Set<SocialNetwork> getSocialNetworks() {
-        return socialNetworks;
-    }
-
-    public void setSocialNetworks(Set<SocialNetwork> socialNetworks) {
-        this.socialNetworks = socialNetworks;
-    }
-}
-
-enum SocialNetworkName {
-    Instagram,
-    Facebook,
-    Twitter,
-    TikTok
-}
-
-class SocialNetwork {
-    private String url;
-    private SocialNetworkName name;
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public SocialNetworkName getName() {
-        return name;
-    }
-
-    public void setName(SocialNetworkName name) {
-        this.name = name;
     }
 }
 
