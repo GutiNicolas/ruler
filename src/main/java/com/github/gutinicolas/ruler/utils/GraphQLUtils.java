@@ -18,6 +18,25 @@ public class GraphQLUtils {
         return map;
     }
 
+    public Map<String, Object> graphMapToImmutableMap(List<GraphMapEntry> graphMap) {
+        return Map.ofEntries((Map.Entry<? extends String, ?>[]) graphMapToMap(graphMap)
+                .entrySet()
+                .stream()
+                .filter(this::isValidImmutableEntry)
+                .collect(Collectors.toSet())
+                .toArray());
+    }
+
+    public List<GraphMapEntry> mapToGraphMap(Map<String, Object> map) {
+        List<GraphMapEntry> l = map.entrySet()
+                .stream()
+                .map(GraphMapEntry::new)
+                .collect(Collectors.toList());
+    }
+
+    public boolean isValidImmutableEntry(Map.Entry<String, Object> entry) {
+        return StringUtils.isNotBlank((String) entry.getKey()) && entry.getValue() != null;
+    }
 }
 
 class GraphMapEntry {
@@ -27,6 +46,11 @@ class GraphMapEntry {
     public GraphMapEntry(String key, Object value) {
         this.key = key;
         this.value = value;
+    }
+
+    public GraphMapEntry(Map.Entry<String, Object> entry) {
+        this.key = entry.getKey();
+        this.value = entry.getValue();
     }
 
     public String getKey() {
@@ -46,6 +70,6 @@ class GraphMapEntry {
     }
 
     public boolean isValidEntry() {
-        return StringUtils.isNotBlank(key) && value != null;
+        return StringUtils.isNotBlank(key);
     }
 }
