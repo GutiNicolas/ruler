@@ -11,3 +11,4 @@ Work in progress
 ## API
 
 ruler's API is powered by GraphQL meaning that the app waits for request only on {{ruler-url:endpoint}}/graphql
+[![By](https://badgen.net/badge/Learn%20about/GraphQL/pink?icon=graphql)](https://graphql.org/)
