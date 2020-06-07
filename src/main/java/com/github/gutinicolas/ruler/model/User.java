@@ -3,12 +3,14 @@ package com.github.gutinicolas.ruler.model;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class User implements Serializable {
 
-    private UUID id;
+    private UUID id = UUID.randomUUID();
     private String username;
     private String email;
     private String password;
@@ -52,6 +54,11 @@ public class User implements Serializable {
 
     public void setIdentity(Identity identity) {
         this.identity = identity;
+    }
+
+    public String getFullName() {
+        List<Optional<String>> name = List.of(Optional.of(this.identity.getFirstName()), this.identity.getMiddleName(), Optional.of(this.identity.getLastName()));
+        return name.stream().filter(Optional::isPresent).map(Optional::get).collect(Collectors.joining(" "));
     }
 }
 

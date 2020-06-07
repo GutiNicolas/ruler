@@ -1,10 +1,13 @@
 package com.github.gutinicolas.ruler.utils;
 
+import org.springframework.stereotype.Service;
+
 import java.io.Serializable;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Service
 public class PathUtils {
 
     private final static Pattern INDEX = Pattern.compile("^\\\\[(\\\\d+)\\\\]$");
@@ -18,7 +21,7 @@ public class PathUtils {
             }
             return result;
         } catch (IllegalArgumentException e) {
-            result.v = null;
+            result.v = Optional.empty();
             return result;
         }
     }
@@ -86,15 +89,27 @@ class PathObject implements Serializable {
     }
 
     public Map<String, Object> toMap() {
-        return convert(Map.class).orElse(Map.of());
+        return convert(Map.class).orElse(new HashMap());
+    }
+
+    public Map<String, Object> toImmutableMap() {
+        return Map.ofEntries((Map.Entry[]) this.toMap().entrySet().toArray());
     }
 
     public <T> List<T> toList(Class<T> c) {
-        List conv = convert(List.class).orElse(List.of());
-        return conv.isEmpty() ? conv : c.isInstance(conv.get(0)) ? conv : List.of();
+        List conv = convert(List.class).orElse(new ArrayList<T>());
+        return conv.isEmpty() ? conv : c.isInstance(conv.get(0)) ? conv : new ArrayList<T>();
+    }
+
+    public <T> List<T> toImmutableList(Class<T> c) {
+        return List.of((T[]) this.toList(c).toArray());
     }
 
     public <T> Set<T> toSet(Class<T> c) {
         return new HashSet<T>(this.toList(c));
+    }
+
+    public <T> Set<T> toImmutableSet(Class<T> c) {
+        return Set.of((T[]) this.toList(c).toArray());
     }
 }
