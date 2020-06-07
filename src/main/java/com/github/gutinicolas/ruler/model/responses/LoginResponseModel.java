@@ -1,44 +1,30 @@
-package com.github.gutinicolas.ruler.model.requests;
+package com.github.gutinicolas.ruler.model.responses;
 
 import com.github.gutinicolas.ruler.model.graphQLUtilsModel.GraphMapEntry;
 
+import javax.mail.Session;
 import java.util.List;
 
-public class LoginRequestModel {
-    private String username;
-    private String email;
-    private String password;
+public class LoginResponseModel {
+    private boolean ok;
+    private String reason;
     private List<GraphMapEntry> data;
+    private Session session;
 
-    public LoginRequestModel(String username, String email, String password, List<GraphMapEntry> data) {
-        this.username = username;
-        this.email = email;
-        this.password = password;
-        this.data = data;
+    public boolean isOk() {
+        return ok;
     }
 
-    public String getUsername() {
-        return username;
+    public void setOk(boolean ok) {
+        this.ok = ok;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getReason() {
+        return reason;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setReason(String reason) {
+        this.reason = reason;
     }
 
     public List<GraphMapEntry> getData() {
@@ -47,5 +33,20 @@ public class LoginRequestModel {
 
     public void setData(List<GraphMapEntry> data) {
         this.data = data;
+    }
+
+    public Session getSession() {
+        return session;
+    }
+
+    public void setSession(Session session) {
+        this.session = session;
+    }
+
+    public LoginResponseModel(boolean ok, String reason, List<GraphMapEntry> data, Session session) {
+        this.ok = ok;
+        this.reason = reason;
+        this.data = data;
+        this.session = session;
     }
 }

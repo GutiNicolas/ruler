@@ -1,0 +1,53 @@
+type User {
+    id: ID!,
+    username: String!,
+    email: String!,
+    identity: Identity
+}
+
+type Identity {
+    firstName: String,
+    lastName: String,
+    middleName: String,
+    gender: Gender
+}
+
+enum Gender {
+    Male,
+    Female,
+    Other,
+    Prefer_not
+}
+
+input LoginRequestModel {
+    username: String,
+    email: String,
+    password: String,
+    data: [GraphMapEntryI]
+}
+
+type LoginResponseModel {
+    ok: Boolean,
+    reason: String,
+    data: [GraphMapEntry],
+    session: Session
+}
+
+type Session {
+    id: ID
+}
+
+type GraphMapEntry {
+    key: String,
+    value: String
+}
+
+input GraphMapEntryI {
+    key: String,
+    value: String
+}
+
+type Query {
+    login(request: LoginRequestModel): LoginResponseModel
+    isAlive: String
+}
