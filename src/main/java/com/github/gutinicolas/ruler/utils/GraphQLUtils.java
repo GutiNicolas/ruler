@@ -1,5 +1,6 @@
 package com.github.gutinicolas.ruler.utils;
 
+import com.github.gutinicolas.ruler.model.graphQLUtilsModel.GraphMapEntry;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 @Service
 public class GraphQLUtils {
+
     public Map<String, Object> graphMapToMap(List<GraphMapEntry> graphMap) {
         Map<String, Object> map = new HashMap<>();
         graphMap.stream().filter(GraphMapEntry::isValidEntry).collect(Collectors.toList()).forEach(graphMapEntry -> {
@@ -28,7 +30,7 @@ public class GraphQLUtils {
     }
 
     public List<GraphMapEntry> mapToGraphMap(Map<String, Object> map) {
-        List<GraphMapEntry> l = map.entrySet()
+        return map.entrySet()
                 .stream()
                 .map(GraphMapEntry::new)
                 .collect(Collectors.toList());
@@ -39,37 +41,3 @@ public class GraphQLUtils {
     }
 }
 
-class GraphMapEntry {
-    String key;
-    Object value;
-
-    public GraphMapEntry(String key, Object value) {
-        this.key = key;
-        this.value = value;
-    }
-
-    public GraphMapEntry(Map.Entry<String, Object> entry) {
-        this.key = entry.getKey();
-        this.value = entry.getValue();
-    }
-
-    public String getKey() {
-        return key;
-    }
-
-    public void setKey(String key) {
-        this.key = key;
-    }
-
-    public Object getValue() {
-        return value;
-    }
-
-    public void setValue(Object value) {
-        this.value = value;
-    }
-
-    public boolean isValidEntry() {
-        return StringUtils.isNotBlank(key);
-    }
-}

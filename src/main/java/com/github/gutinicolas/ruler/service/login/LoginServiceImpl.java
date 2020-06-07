@@ -1,6 +1,7 @@
 package com.github.gutinicolas.ruler.service.login;
 
 import com.github.gutinicolas.ruler.exceptions.DocumentNotFoundException;
+import com.github.gutinicolas.ruler.model.requests.LoginRequestModel;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixCommand;
 import com.netflix.hystrix.contrib.javanica.annotation.HystrixProperty;
 import org.springframework.stereotype.Component;
@@ -19,7 +20,7 @@ public class LoginServiceImpl implements LoginService {
                 @HystrixProperty(name = "maximumSize", value = "2"),
             }
     )
-    public Map<String, Object> validateLogin(Map<String, Object> request) {
+    public Map<String, Object> validateLogin(LoginRequestModel request) {
         return Map.of("ok", true, "message", "OK");
     }
 
