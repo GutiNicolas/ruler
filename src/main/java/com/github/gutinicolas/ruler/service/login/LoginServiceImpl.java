@@ -20,7 +20,7 @@ public class LoginServiceImpl implements LoginService {
                 @HystrixProperty(name = "maximumSize", value = "2"),
             }
     )
-    public Map<String, Object> validateLogin(LoginRequestModel request) {
+    public Map<String, Object> validateLogin(Map<String, Object> request) {
         return Map.of("ok", true, "message", "OK");
     }
 
