@@ -37,7 +37,7 @@ public class LoginController {
     public LoginResponseModel login(Map<String, Object> request) throws JsonProcessingException {
         logger.info("Received login request, request is {}", request);
         loginService.validateLogin(request);
-        Map<String, Object> map = objectMapper.readValue(pathUtils.path(request, "data").toStr().orElse(""), Map.class);
+        Map<String, Object> map = objectMapper.readValue(pathUtils.path(request, "data.value").toStr().orElse(""), Map.class);
         request.put("data", map);
         return new LoginResponseModel(true, "Test", request, null);
     }

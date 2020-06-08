@@ -6,6 +6,7 @@ import com.google.common.base.Charsets;
 import com.google.common.io.Resources;
 import graphql.GraphQL;
 import graphql.language.ObjectValue;
+import graphql.language.Value;
 import graphql.schema.*;
 import graphql.schema.idl.*;
 import org.slf4j.Logger;
@@ -61,7 +62,6 @@ public class GraphQLProvider {
         return RuntimeWiring.newRuntimeWiring()
                 .type(queryBuilder())
                 .scalar(getScalarMap())
-                .scalar(getScalarRequestMap())
                 .build();
     }
 
@@ -86,27 +86,6 @@ public class GraphQLProvider {
             @Override
             public Map<String, Object> parseLiteral(Object o) throws CoercingParseLiteralException {
                 return o instanceof Map<?, ?> ? (Map<String, Object>) o : null;            }
-        });
-        return graphQLScalarType;
-    }
-
-    private GraphQLScalarType getScalarRequestMap() {
-        GraphQLScalarType graphQLScalarType = new GraphQLScalarType("RequestMap", "Scalar Map Type", new Coercing<String, Object>() {
-            @Override
-            public Object serialize(Object o) throws CoercingSerializeException {
-                Logger log = LoggerFactory.getLogger("COSO");
-                log.info("TENEMOS serialize {}", o);
-                return null;            }
-
-            @Override
-            public String parseValue(Object o) throws CoercingParseValueException {
-                Logger log = LoggerFactory.getLogger("COSO");
-                log.info("TENEMOS parseValue {}", o);
-                return null;             }
-
-            @Override
-            public String parseLiteral(Object o) throws CoercingParseLiteralException {
-                return null;              }
         });
         return graphQLScalarType;
     }
