@@ -1,9 +1,13 @@
 package com.github.gutinicolas.ruler.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.gutinicolas.ruler.model.graphQLUtilsModel.GraphMapEntry;
 import com.github.gutinicolas.ruler.model.requests.LoginRequestModel;
 import com.github.gutinicolas.ruler.model.responses.LoginResponseModel;
 import com.github.gutinicolas.ruler.service.login.LoginService;
+import com.github.gutinicolas.ruler.utils.GraphQLUtils;
+import com.github.gutinicolas.ruler.utils.PathUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,10 +24,21 @@ public class LoginController {
     @Autowired
     LoginService loginService;
 
+    @Autowired
+    GraphQLUtils graphQLUtils;
 
-    public LoginResponseModel login(Map<String, Object> request) {
+    @Autowired
+    ObjectMapper objectMapper;
+
+    @Autowired
+    PathUtils pathUtils;
+
+
+    public LoginResponseModel login(Map<String, Object> request) throws JsonProcessingException {
         logger.info("Received login request, request is {}", request);
         loginService.validateLogin(request);
-        return new LoginResponseModel(true, "Test", new ArrayList<GraphMapEntry>(), null);
+        Map<String, Object> map = objectMapper.readValue(pathUtils.path(request, "data").toStr().orElse(""), Map.class);
+        request.put("data", map);
+        return new LoginResponseModel(true, "Test", request, null);
     }
 }

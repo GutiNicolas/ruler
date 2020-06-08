@@ -3,14 +3,15 @@ package com.github.gutinicolas.ruler.model.requests;
 import com.github.gutinicolas.ruler.model.graphQLUtilsModel.GraphMapEntry;
 
 import java.util.List;
+import java.util.Map;
 
 public class LoginRequestModel {
     private String username;
     private String email;
     private String password;
-    private List<GraphMapEntry> data;
+    private Map<String, Object> data;
 
-    public LoginRequestModel(String username, String email, String password, List<GraphMapEntry> data) {
+    public LoginRequestModel(String username, String email, String password, Map<String, Object> data) {
         this.username = username;
         this.email = email;
         this.password = password;
@@ -41,11 +42,11 @@ public class LoginRequestModel {
         this.password = password;
     }
 
-    public List<GraphMapEntry> getData() {
+    public Map<String, Object> getData() {
         return data;
     }
 
-    public void setData(List<GraphMapEntry> data) {
+    public void setData(Map<String, Object> data) {
         this.data = data;
     }
 }

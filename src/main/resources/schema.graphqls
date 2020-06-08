@@ -1,3 +1,6 @@
+scalar Map
+scalar RequestMap
+
 type User {
     id: ID!,
     username: String!,
@@ -23,28 +26,18 @@ input LoginRequestModel {
     username: String,
     email: String,
     password: String,
-    data: [GraphMapEntryI]
+    data: String
 }
 
 type LoginResponseModel {
     ok: Boolean,
     reason: String,
-    data: [GraphMapEntry],
+    data: Map,
     session: Session
 }
 
 type Session {
     id: ID
-}
-
-type GraphMapEntry {
-    key: String,
-    value: String
-}
-
-input GraphMapEntryI {
-    key: String,
-    value: String
 }
 
 type Query {

@@ -4,11 +4,12 @@ import com.github.gutinicolas.ruler.model.graphQLUtilsModel.GraphMapEntry;
 
 import javax.mail.Session;
 import java.util.List;
+import java.util.Map;
 
 public class LoginResponseModel {
     private boolean ok;
     private String reason;
-    private List<GraphMapEntry> data;
+    private Map<String, Object> data;
     private Session session;
 
     public boolean isOk() {
@@ -27,11 +28,11 @@ public class LoginResponseModel {
         this.reason = reason;
     }
 
-    public List<GraphMapEntry> getData() {
+    public Map<String, Object> getData() {
         return data;
     }
 
-    public void setData(List<GraphMapEntry> data) {
+    public void setData(Map<String, Object> data) {
         this.data = data;
     }
 
@@ -43,7 +44,7 @@ public class LoginResponseModel {
         this.session = session;
     }
 
-    public LoginResponseModel(boolean ok, String reason, List<GraphMapEntry> data, Session session) {
+    public LoginResponseModel(boolean ok, String reason, Map<String, Object> data, Session session) {
         this.ok = ok;
         this.reason = reason;
         this.data = data;
